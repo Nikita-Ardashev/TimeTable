@@ -1,3 +1,4 @@
 npx react-native-asset
 npm add react-native-svg
 npm add -D react-native-svg-transformer
+npx expo install expo-constants

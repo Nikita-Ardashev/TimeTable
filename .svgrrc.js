@@ -1,5 +1,4 @@
-{
-  "replaceAttrValues": {
-    "#000": "{props.fill}"
-  }
-}
+module.exports = {
+  icon: true,
+  expandProps: false,
+};
