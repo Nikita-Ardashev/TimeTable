@@ -1,110 +1,15 @@
 import React from "react";
 import styled from "styled-components/native";
-import Search from "../../../assets/search.svg";
-import Close from "../../../assets/close.svg";
-import Arrow from "../../../assets/arrow.svg";
+import { SelectList } from "react-native-dropdown-select-list";
 import { Dimensions } from "react-native";
 
-const Dimension = Dimensions.get("window").height;
-
-const BoxHeaderDropdown = styled.View`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  background: white;
-  height: 64px;
-  padding: 0 20px;
-  border-bottom-color: #9c9c9c;
-  border-bottom-width: 2px;
-  z-index: 1;
-`;
-
-const BoxSearch = styled.View`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  max-width: 80%;
-`;
-
-const TextSearch = styled.TextInput`
-  width: 100%;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 19px;
-  line-height: 22px;
-  color: black;
-  background-color: white;
-`;
-
-const BtnTextHeaderDropdown = styled.TouchableOpacity``;
-
-const TextHeaderDropdown = styled.Text`
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 19px;
-  line-height: 22px;
-  color: #000000;
-`;
-
-const BtnCloseOrSearch = styled.TouchableOpacity`
+const Arrow = styled.Image`
   width: 24px;
-  height: 24px;
-`;
-
-const BoxDropdown = styled.ScrollView`
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  width: 100%;
-  max-height: ${Dimension - 64}px;
-  padding-bottom: 24px;
-  position: absolute;
-  top: 64px;
-  z-index: 0;
-`;
-
-const ItemDropdown = styled.TouchableOpacity`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  height: 64px;
-  border-bottom-color: #9c9c9c;
-  border-bottom-width: 2px;
-  padding: 0 16px;
-`;
-
-const ItemTextDropdown = styled.Text`
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 19px;
-  line-height: 22px;
-  color: #000000;
+  height: 12px;
 `;
 
 export const Dropdown = ({ ArrayForDropdown }) => {
-  const [flexList, setFlexList] = React.useState("none");
-
-  const Wrapper = styled.View`
-    flex: ${flexList};
-    display: flex;
-    z-index: 1;
-    background-color: white;
-  `;
-
-  function toggleFlexList() {
-    if (flexList == "none") {
-      setFlexList("1");
-    } else {
-      setFlexList("none");
-    }
-  }
-
+  const [selected, setSelected] = React.useState("");
   function listSort(list, element) {
     let arr = list.sort((a, b) => {
       if (a[element] < b[element]) {
@@ -118,52 +23,71 @@ export const Dropdown = ({ ArrayForDropdown }) => {
     return arr;
   }
   listSort(ArrayForDropdown, "value");
-  const [isSearch, setSearch] = React.useState(true);
-  function toggleSearch() {
-    setSearch(!isSearch);
-    toggleFlexList();
-  }
-  function renderSearch() {
-    if (isSearch) {
-      return (
-        <Wrapper>
-          <BoxHeaderDropdown>
-            <BtnTextHeaderDropdown onPress={toggleSearch}>
-              <TextHeaderDropdown>Выбирите свою фамилию :)</TextHeaderDropdown>
-            </BtnTextHeaderDropdown>
-
-            <BtnCloseOrSearch onPress={toggleSearch}>
-              <Arrow />
-            </BtnCloseOrSearch>
-          </BoxHeaderDropdown>
-        </Wrapper>
-      );
-    } else {
-      return (
-        <Wrapper>
-          <BoxHeaderDropdown>
-            <BoxSearch>
-              <Search />
-
-              <TextSearch
-                placeholder="Поиск..."
-                placeholderTextColor={"rgba(156, 156, 156, 1)"}
-              />
-            </BoxSearch>
-            <BtnCloseOrSearch onPress={toggleSearch}>
-              <Close />
-            </BtnCloseOrSearch>
-          </BoxHeaderDropdown>
-          <BoxDropdown>
-            {ArrayForDropdown.map((el) => (
-              <ItemDropdown key={el.value}>
-                <ItemTextDropdown>{el.value}</ItemTextDropdown>
-              </ItemDropdown>
-            ))}
-          </BoxDropdown>
-        </Wrapper>
-      );
-    }
-  }
-  return renderSearch();
+  const windowHeight = Dimensions.get("window").height - 64;
+  return (
+    <SelectList
+      setSelected={(val) => setSelected(val)}
+      data={ArrayForDropdown}
+      save="value"
+      placeholder="Выбирите свою фамилию :)"
+      maxHeight={windowHeight}
+      searchPlaceholder="Поиск"
+      arrowicon={<Arrow source={require("../../assets/arrow.svg")} />}
+      closeicon={<Arrow source={require("../../assets/close.svg")} />}
+      checkBoxStyles={{
+        padding: 0,
+      }}
+      notFoundText="Таких преподователей нет"
+      boxStyles={{
+        borderTop: "none",
+        borderLeft: "none",
+        borderRight: "none",
+        borderBottomColor: "#c9c9c9",
+        borderBottomWidth: 2,
+        // borderRadius: "none",
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        width: "100%",
+        height: 64,
+        paddingLeft: 16,
+        paddingRight: 16,
+        zIndex: 0,
+      }}
+      inputStyles={{
+        fontFamily: "RobotoMedium",
+        fontStyle: "normal",
+        fontSize: 19,
+        lineHeight: 22,
+        color: "#000000",
+        outline: "none",
+      }}
+      searchPlaceholder={"Поиск..."}
+      dropdownStyles={{
+        border: "none",
+        // borderRadius: "none",
+        margin: 0,
+        flex: 0,
+      }}
+      dropdownItemStyles={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        borderBottomColor: "#c9c9c9",
+        borderBottomWidth: 2,
+        height: 64,
+        paddingLeft: 16,
+        paddingRight: 16,
+      }}
+      dropdownTextStyles={{
+        fontFamily: "RobotoMedium",
+        fontStyle: "normal",
+        fontSize: 19,
+        lineHeight: 22,
+        color: "#000000",
+      }}
+    />
+  );
 };

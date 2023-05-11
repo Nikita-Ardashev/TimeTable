@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { Lesson } from "../components/Home/Lesson";
-import { Dropdown } from "../components/Home/Dropdown";
+import { Dropdown } from "../components/Home/DropdownMyVersion";
 import { Dimensions } from "react-native";
 const Wrapper = styled.View`
   flex: 1;
@@ -110,30 +110,33 @@ const teacher = [
 ];
 
 export const Home = () => {
-  // const [isDisplayBox, setDisplayBox] = React.useState(true);
-  // function toggleDisplayBox() {
-  //   setDisplayBox(!isDisplayBox);
-  // }
+  const [isDisplayBox, setDisplayBox] = React.useState(true);
   function renderDisplayBox() {
-    return (
-      <Box>
-        <DateStyle>
-          <Day>8 Февраля</Day>
-          <WeekDay>ср</WeekDay>
-        </DateStyle>
-        <Lesson
-          time={"8:30 - 10:00"}
-          numLesson={"1"}
-          name={"Прогр решения для бизнеса"}
-          group={"И-20-2"}
-          cabinetNum={"302"}
-        />
-      </Box>
-    );
+    if (isDisplayBox) {
+      return (
+        <Box>
+          <DateStyle>
+            <Day>8 Февраля</Day>
+            <WeekDay>ср</WeekDay>
+          </DateStyle>
+          <Lesson
+            time={"8:30 - 10:00"}
+            numLesson={"1"}
+            name={"Прогр решения для бизнеса"}
+            group={"И-20-2"}
+            cabinetNum={"302"}
+          />
+        </Box>
+      );
+    }
   }
   return (
     <Wrapper>
-      <Dropdown ArrayForDropdown={teacher} />
+      <Dropdown
+        ArrayForDropdown={teacher}
+        isDisplayBox={isDisplayBox}
+        setDisplayBox={setDisplayBox}
+      />
       {renderDisplayBox()}
     </Wrapper>
   );
