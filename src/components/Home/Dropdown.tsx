@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components/native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { Dimensions } from "react-native";
+import SearchIcon from "../../../assets/search.svg";
+import CloseIcon from "../../../assets/close.svg";
+import ArrowIcon from "../../../assets/arrow.svg";
 
 const Arrow = styled.Image`
   width: 24px;
@@ -32,42 +35,45 @@ export const Dropdown = ({ ArrayForDropdown }) => {
       placeholder="Выбирите свою фамилию :)"
       maxHeight={windowHeight}
       searchPlaceholder="Поиск"
-      arrowicon={<Arrow source={require("../../assets/arrow.svg")} />}
-      closeicon={<Arrow source={require("../../assets/close.svg")} />}
-      checkBoxStyles={{
-        padding: 0,
-      }}
+      arrowicon={<ArrowIcon />}
+      closeicon={<CloseIcon />}
+      searchicon={<SearchIcon />}
       notFoundText="Таких преподователей нет"
       boxStyles={{
-        borderTop: "none",
-        borderLeft: "none",
-        borderRight: "none",
+        borderTopWidth: 0,
+        borderLeftWidth: 0,
+        borderRightWidth: 0,
         borderBottomColor: "#c9c9c9",
         borderBottomWidth: 2,
-        // borderRadius: "none",
+        backgroundColor: "white",
+        borderRadius: 0,
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        width: "100%",
         height: 64,
         paddingLeft: 16,
         paddingRight: 16,
+        gap: 8,
         zIndex: 0,
       }}
       inputStyles={{
-        fontFamily: "RobotoMedium",
+        paddingLeft: 12,
+        fontFamily: "Roboto",
         fontStyle: "normal",
+        fontWeight: "400",
         fontSize: 19,
         lineHeight: 22,
         color: "#000000",
-        outline: "none",
       }}
       searchPlaceholder={"Поиск..."}
       dropdownStyles={{
-        border: "none",
-        // borderRadius: "none",
-        margin: 0,
+        borderTopWidth: 0,
+        borderLeftWidth: 0,
+        borderRightWidth: 0,
+        borderBottomWidth: 0,
+        borderRadius: 0,
+        marginTop: 0,
         flex: 0,
       }}
       dropdownItemStyles={{
@@ -82,8 +88,9 @@ export const Dropdown = ({ ArrayForDropdown }) => {
         paddingRight: 16,
       }}
       dropdownTextStyles={{
-        fontFamily: "RobotoMedium",
+        fontFamily: "Roboto",
         fontStyle: "normal",
+        fontWeight: "500",
         fontSize: 19,
         lineHeight: 22,
         color: "#000000",

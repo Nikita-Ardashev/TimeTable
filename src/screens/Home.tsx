@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { Lesson } from "../components/Home/Lesson";
-import { Dropdown } from "../components/Home/DropdownMyVersion";
+import { Dropdown } from "../components/Home/Dropdown";
 import { Dimensions } from "react-native";
 const Wrapper = styled.View`
   flex: 1;
@@ -9,7 +9,16 @@ const Wrapper = styled.View`
   flex-direction: column;
 `;
 
-const Box = styled.View``;
+const Box = styled.View`
+  margin-top: 72px;
+`;
+
+const DropdownBox = styled.View`
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  background: white;
+`;
 
 const DateStyle = styled.TouchableOpacity`
   display: flex;
@@ -44,7 +53,7 @@ const CalendarPosition = styled.View`
   width: 100%;
 `;
 
-const teacher = [
+const teachers = [
   { value: "Балогланов Видади Нусратович" },
   { value: "Высотских Ангелина Ивановна" },
   { value: "Еремеева Елена Рудольфовна" },
@@ -132,11 +141,9 @@ export const Home = () => {
   }
   return (
     <Wrapper>
-      <Dropdown
-        ArrayForDropdown={teacher}
-        isDisplayBox={isDisplayBox}
-        setDisplayBox={setDisplayBox}
-      />
+      <DropdownBox>
+        <Dropdown ArrayForDropdown={teachers} />
+      </DropdownBox>
       {renderDisplayBox()}
     </Wrapper>
   );
