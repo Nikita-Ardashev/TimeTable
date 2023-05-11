@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import styled from "styled-components/native";
 import { Home } from "./src/screens/Home";
+import { Tutorial } from "./src/screens/Tutorial";
 import Constants from "expo-constants";
 
 const Wrapper = styled.View`
@@ -12,7 +13,8 @@ const Wrapper = styled.View`
 export default function App() {
   return (
     <Wrapper>
-      <Home />
+      {/* <Home /> */}
+      <Tutorial />
       <StatusBar style="auto" />
     </Wrapper>
   );
