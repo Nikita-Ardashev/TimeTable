@@ -119,32 +119,24 @@ const teachers = [
 ];
 
 export const Home = () => {
-  const [isDisplayBox, setDisplayBox] = React.useState(true);
-  function renderDisplayBox() {
-    if (isDisplayBox) {
-      return (
-        <Box>
-          <DateStyle>
-            <Day>8 Февраля</Day>
-            <WeekDay>ср</WeekDay>
-          </DateStyle>
-          <Lesson
-            time={"8:30 - 10:00"}
-            numLesson={"1"}
-            name={"Прогр решения для бизнеса"}
-            group={"И-20-2"}
-            cabinetNum={"302"}
-          />
-        </Box>
-      );
-    }
-  }
   return (
     <Wrapper>
       <DropdownBox>
         <Dropdown ArrayForDropdown={teachers} />
       </DropdownBox>
-      {renderDisplayBox()}
+      <Box>
+        <DateStyle>
+          <Day>8 Февраля</Day>
+          <WeekDay>ср</WeekDay>
+        </DateStyle>
+        <Lesson
+          time={"8:30 - 10:00"}
+          numLesson={"1"}
+          name={"Прогр решения для бизнеса"}
+          group={"И-20-2"}
+          cabinetNum={"302"}
+        />
+      </Box>
     </Wrapper>
   );
 };

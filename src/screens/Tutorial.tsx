@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components/native";
 import Swiper from "react-native-swiper";
 import { SwiperItem } from "../components/Tutorial/SwiperItem";
@@ -7,10 +7,13 @@ import ComfrtableTable from "../../assets/comfortableView.svg";
 import Calendar from "../../assets/calendar.svg";
 import Notes from "../../assets/notes.svg";
 import Ready from "../../assets/ready.svg";
+import { Image } from "react-native";
 
 const Wrapper = styled.View`
   flex: 1;
 `;
+
+const Box = styled.View``;
 
 const Btn = styled.TouchableOpacity`
   display: flex;
@@ -29,45 +32,54 @@ const BtnText = styled.Text`
   color: white;
 `;
 
-var SwiperArr = [
+const SwiperArr = [
   <SwiperItem
-    ImgSource={<TimeTable />}
+    ImgSource={<Image source={require("../../assets/timetable.png")} />}
     Title={"Добро пожаловать!"}
     MainText={
       "TimeTable - приложение для отслеживания пар преподавателей ИПЭК’а"
     }
   />,
   <SwiperItem
-    ImgSource={<ComfrtableTable />}
+    ImgSource={<Image source={require("../../assets/comfortableView.png")} />}
     Title={"Удобный просмотр"}
     MainText={"Нажмите на фамилию преподавателя чтобы посмотреть его пары"}
   />,
   <SwiperItem
-    ImgSource={<Calendar />}
+    ImgSource={<Image source={require("../../assets/calendar.png")} />}
     Title={"Заметки"}
     MainText={
       "Нажав на пару вы можете оставить заметку и просмотреть ее в будущем"
     }
   />,
   <SwiperItem
-    ImgSource={<Notes />}
+    ImgSource={<Image source={require("../../assets/notes.png")} />}
     Title={"Календарь"}
     MainText={
       "Вы можете воспользоваться календарем чтобы посмотреть какие пары у вас были в течении месяца"
     }
   />,
   <SwiperItem
-    ImgSource={<Ready />}
+    ImgSource={<Image source={require("../../assets/ready.png")} />}
     Title={"Готовы?"}
     MainText={"Теперь вы знаете о всех возможностях TimeTable. Удачи!"}
   />,
 ];
 
 export const Tutorial = () => {
+  const swipeItemlength = SwiperArr.length - 1;
+  const [isReady, setReady] = useState(false);
+  const ref = useRef(null);
+
+  function Miss(index) {
+    ref.current.scrollBy(index, true);
+    setReady(true);
+  }
+
   function renderBtn() {
-    if (true) {
+    if (!isReady) {
       return (
-        <Btn>
+        <Btn onPress={() => Miss(swipeItemlength)}>
           <BtnText>Пропустить</BtnText>
         </Btn>
       );
@@ -81,9 +93,25 @@ export const Tutorial = () => {
   }
   return (
     <Wrapper>
-      <Swiper loop={false}>
-        {SwiperArr.map((item) => {
-          return item;
+      <Swiper
+        index={0}
+        ref={ref}
+        loop={false}
+        activeDotColor="#05D171"
+        dotColor="#E1E1E1"
+        onIndexChanged={(index) => {
+          if (index === swipeItemlength) {
+            setReady(true);
+          } else {
+            setReady(false);
+          }
+        }}
+        removeClippedSubviews={true}
+        autoplay={true}
+        autoplayTimeout={5}
+      >
+        {SwiperArr.map((item, index) => {
+          return <Box key={index}>{item}</Box>;
         })}
       </Swiper>
       {renderBtn()}

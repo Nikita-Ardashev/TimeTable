@@ -7,7 +7,6 @@ const Wrapper = styled.View`
   align-items: center;
   padding-top: 7.5%;
   width: 100%;
-  object-fit: fill;
 `;
 
 const MainImg = styled.View`
