@@ -66,7 +66,7 @@ const SwiperArr = [
   />,
 ];
 
-export const Tutorial = () => {
+export const Tutorial = ({ setTutorialReady }) => {
   const swipeItemlength = SwiperArr.length - 1;
   const [isReady, setReady] = useState(false);
   const ref = useRef(null);
@@ -85,7 +85,11 @@ export const Tutorial = () => {
       );
     } else {
       return (
-        <Btn>
+        <Btn
+          onPress={() => {
+            setTutorialReady(true);
+          }}
+        >
           <BtnText>Готово</BtnText>
         </Btn>
       );

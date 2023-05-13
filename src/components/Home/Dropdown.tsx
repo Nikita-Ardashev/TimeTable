@@ -26,7 +26,7 @@ export const Dropdown = ({ ArrayForDropdown }) => {
     return arr;
   }
   listSort(ArrayForDropdown, "value");
-  const windowHeight = Dimensions.get("window").height - 64;
+  const windowHeight = Dimensions.get("window").height;
   return (
     <SelectList
       setSelected={(val) => setSelected(val)}

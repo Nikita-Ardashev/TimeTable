@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components/native";
 import { Lesson } from "../components/Home/Lesson";
 import { Dropdown } from "../components/Home/Dropdown";
 import { Dimensions } from "react-native";
+import { CalendarPicker } from "../components/Home/CalendarPicker";
 const Wrapper = styled.View`
   flex: 1;
   display: flex;
@@ -48,9 +49,29 @@ const WeekDay = styled.Text`
 `;
 
 const CalendarPosition = styled.View`
-  position: relative;
-  height: 64px;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+`;
+
+const BoxCalendar = styled.View`
+  margin-top: 40%;
+  z-index: 2;
+  border-radius: 16px;
+`;
+
+const Shadow = styled.View`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0.25;
+  z-index: 1;
 `;
 
 const teachers = [
@@ -117,17 +138,65 @@ const teachers = [
   { value: "Созонова Алефтина Вячеславовна" },
   { value: "Шестакова Виктория Павловна" },
 ];
-
+const monthsView = [
+  "Января",
+  "Февраля",
+  "Марта",
+  "Апреля",
+  "Мая",
+  "Июня",
+  "Июля",
+  "Августа",
+  "Сентября",
+  "октября",
+  "Ноября",
+  "Декабря",
+];
 export const Home = () => {
+  const dateNow = new Date();
+  const dateDay = {
+    weekday: "short",
+  };
+  const monthFirst = dateNow.getMonth();
+  const dayFirst = dateNow.getDate();
+
+  const [monthDay, setMonthDay] = useState(dayFirst);
+  const [month, setMonth] = useState(monthFirst + 1);
+  const [date, setDate] = useState(new Date());
+  const weekday = new Date(date)
+    .toLocaleDateString(undefined, dateDay)
+    .substring(0, 2);
+  const [isCalendar, setCalendar] = useState(false);
+  function toggleCalendar() {
+    setCalendar(!isCalendar);
+  }
+  function renderCalendar() {
+    if (isCalendar) {
+      return (
+        <CalendarPosition>
+          <BoxCalendar>
+            <CalendarPicker
+              setCalendar={setCalendar}
+              setMonthDay={setMonthDay}
+              setMonth={setMonth}
+              setDate={setDate}
+            />
+          </BoxCalendar>
+          <Shadow />
+        </CalendarPosition>
+      );
+    }
+  }
   return (
     <Wrapper>
+      {renderCalendar()}
       <DropdownBox>
         <Dropdown ArrayForDropdown={teachers} />
       </DropdownBox>
       <Box>
-        <DateStyle>
-          <Day>8 Февраля</Day>
-          <WeekDay>ср</WeekDay>
+        <DateStyle onPress={toggleCalendar}>
+          <Day>{monthDay + " " + monthsView[month - 1]} </Day>
+          <WeekDay>{weekday}</WeekDay>
         </DateStyle>
         <Lesson
           time={"8:30 - 10:00"}
