@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components/native";
 import { Lesson } from "../components/Home/Lesson";
 import { Dropdown } from "../components/Home/Dropdown";
-import { Dimensions } from "react-native";
 import { CalendarPicker } from "../components/Home/CalendarPicker";
+import { Notes } from "../components/Home/Notes";
 const Wrapper = styled.View`
   flex: 1;
   display: flex;
@@ -30,6 +30,8 @@ const DateStyle = styled.TouchableOpacity`
   gap: 8px;
 `;
 
+const BoxLesson = styled.TouchableOpacity``;
+
 const Day = styled.Text`
   font-family: "Roboto";
   font-style: normal;
@@ -48,24 +50,27 @@ const WeekDay = styled.Text`
   color: #9c9c9c;
 `;
 
-const CalendarPosition = styled.View`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-`;
+const CalendarModal = styled.Modal``;
 
 const BoxCalendar = styled.View`
-  margin-top: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20%;
   z-index: 2;
-  border-radius: 16px;
 `;
 
-const Shadow = styled.View`
+const NoteModal = styled.Modal``;
+
+const BoxNote = styled.View`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20%;
+  z-index: 2;
+`;
+
+const Shadow = styled.TouchableOpacity`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -154,9 +159,7 @@ const monthsView = [
 ];
 export const Home = () => {
   const dateNow = new Date();
-  const dateDay = {
-    weekday: "short",
-  };
+  const yearFirst = dateNow.getFullYear();
   const monthFirst = dateNow.getMonth();
   const dayFirst = dateNow.getDate();
 
@@ -164,32 +167,55 @@ export const Home = () => {
   const [month, setMonth] = useState(monthFirst + 1);
   const [date, setDate] = useState(new Date());
   const weekday = new Date(date)
-    .toLocaleDateString(undefined, dateDay)
+    .toLocaleDateString(undefined, {
+      weekday: "short",
+    })
     .substring(0, 2);
   const [isCalendar, setCalendar] = useState(false);
   function toggleCalendar() {
     setCalendar(!isCalendar);
   }
-  function renderCalendar() {
-    if (isCalendar) {
-      return (
-        <CalendarPosition>
-          <BoxCalendar>
-            <CalendarPicker
-              setCalendar={setCalendar}
-              setMonthDay={setMonthDay}
-              setMonth={setMonth}
-              setDate={setDate}
-            />
-          </BoxCalendar>
-          <Shadow />
-        </CalendarPosition>
-      );
+  function monthSelect() {
+    if (monthFirst + 1 < 10) {
+      return `0${monthFirst + 1}`;
+    } else {
+      return monthFirst + 1;
     }
+  }
+
+  const [selectedDate, setSelectedDate] = useState(
+    `${yearFirst}-${monthSelect()}-${dayFirst}`
+  );
+  const [isNote, setNote] = useState(false);
+
+  function toggleNote() {
+    setNote(!isNote);
   }
   return (
     <Wrapper>
-      {renderCalendar()}
+      <CalendarModal
+        animationType="fade"
+        transparent={true}
+        visible={isCalendar}
+      >
+        <BoxCalendar>
+          <CalendarPicker
+            setCalendar={setCalendar}
+            setMonthDay={setMonthDay}
+            setMonth={setMonth}
+            setDate={setDate}
+            selected={selectedDate}
+            setSelected={setSelectedDate}
+          />
+        </BoxCalendar>
+        <Shadow onPress={toggleCalendar} />
+      </CalendarModal>
+      <NoteModal animationType="fade" transparent={true} visible={isNote}>
+        <BoxNote>
+          <Notes />
+        </BoxNote>
+        <Shadow onPress={toggleNote} />
+      </NoteModal>
       <DropdownBox>
         <Dropdown ArrayForDropdown={teachers} />
       </DropdownBox>
@@ -198,13 +224,15 @@ export const Home = () => {
           <Day>{monthDay + " " + monthsView[month - 1]} </Day>
           <WeekDay>{weekday}</WeekDay>
         </DateStyle>
-        <Lesson
-          time={"8:30 - 10:00"}
-          numLesson={"1"}
-          name={"Прогр решения для бизнеса"}
-          group={"И-20-2"}
-          cabinetNum={"302"}
-        />
+        <BoxLesson onPress={toggleNote}>
+          <Lesson
+            time={"8:30 - 10:00"}
+            numLesson={"1"}
+            name={"Прогр решения для бизнеса"}
+            group={"И-20-2"}
+            cabinetNum={"302"}
+          />
+        </BoxLesson>
       </Box>
     </Wrapper>
   );

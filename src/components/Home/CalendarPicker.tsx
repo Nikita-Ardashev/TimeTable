@@ -3,9 +3,7 @@ import Arrow from "../../../assets/arrow.svg";
 import styled from "styled-components/native";
 import { Calendar, LocaleConfig } from "react-native-calendars";
 
-const Wrapper = styled.View`
-  flex: 1;
-`;
+const Wrapper = styled.View``;
 
 const ArrowBox = styled.View``;
 
@@ -46,8 +44,9 @@ export const CalendarPicker = ({
   setMonthDay,
   setMonth,
   setDate,
+  setSelected,
+  selected,
 }) => {
-  const [selected, setSelected] = useState("");
   return (
     <Wrapper>
       <Calendar
@@ -71,7 +70,7 @@ export const CalendarPicker = ({
         }}
         style={{
           backgroundColor: "#FFFFFE",
-          shadowColor: "#171717",
+          shadowColor: "#000",
           shadowOffset: { width: 0, height: 0 },
           shadowOpacity: 0.5,
           shadowRadius: 16,
@@ -88,7 +87,7 @@ export const CalendarPicker = ({
           todayTextColor: "#05D171",
           dayTextColor: "#000",
           textDayStyle: {
-            marginTop: 4,
+            marginTop: 2,
             textAlign: "center",
           },
           textDisabledColor: "#9c9c9c",

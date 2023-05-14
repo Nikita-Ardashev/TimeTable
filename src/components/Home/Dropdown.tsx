@@ -6,11 +6,6 @@ import SearchIcon from "../../../assets/search.svg";
 import CloseIcon from "../../../assets/close.svg";
 import ArrowIcon from "../../../assets/arrow.svg";
 
-const Arrow = styled.Image`
-  width: 24px;
-  height: 12px;
-`;
-
 export const Dropdown = ({ ArrayForDropdown }) => {
   const [selected, setSelected] = React.useState("");
   function listSort(list, element) {
