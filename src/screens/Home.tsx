@@ -7,6 +7,7 @@ import { Notes } from "../components/Home/Notes";
 import ProfileIcon from "../../assets/Home/ProfileIcon.svg";
 import SearchIcon from "../../assets/Home/SearchIcon.svg";
 import CalendarIcon from "../../assets/Home/CalendarIcon.svg";
+import { Profile } from "../components/Home/Profile";
 const Wrapper = styled.View`
   display: flex;
   flex-direction: column;
@@ -102,6 +103,11 @@ export const Home = () => {
   function toggleCalendar() {
     setCalendar(true);
   }
+  const [isProfile, setProfile] = useState(false);
+
+  function toggleProfile() {
+    setProfile(true);
+  }
   return (
     <Wrapper>
       <CalendarPicker
@@ -111,10 +117,11 @@ export const Home = () => {
         setView={setCalendar}
       />
       <Notes view={isNote} setView={setNote} />
+      <Profile view={isProfile} setView={setProfile} />
       <Header>
         <BoxHeader>
           <BoxHeaderBefore>
-            <ProfileBtn>
+            <ProfileBtn onPress={toggleProfile}>
               <ProfileIcon fill={"red"} />
             </ProfileBtn>
             <Title>Главная</Title>
