@@ -5,11 +5,11 @@ const Wrapper = styled.View`
   display: flex;
   flex-direction: row;
   gap: 8px;
-  padding-left: 4px;
-  padding-bottom: 8px;
-  padding-top: 8px;
-  border-bottom-color: #e1e1e1;
-  border-bottom-width: 2px;
+  padding-left: 6px;
+  padding-bottom: 6px;
+  padding-top: 6px;
+  background-color: #e5ebf0;
+  border-radius: 8px;
 `;
 
 const LineIndecator = styled.View`
@@ -29,24 +29,24 @@ const BoxTime = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 16px;
+  justify-content: space-between;
 `;
 
 const Time = styled.Text`
   font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
-  font-size: 24px;
-  line-height: 28px;
+  font-size: 28px;
+  line-height: 32px;
   color: #000000;
 `;
 
 const NumberLesson = styled.Text`
   font-family: "Roboto";
   font-style: normal;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 23px;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 21px;
   color: #9c9c9c;
 `;
 
@@ -62,18 +62,18 @@ const Name = styled.Text`
 const Group = styled.Text`
   font-family: "Roboto";
   font-style: normal;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 23px;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 21px;
   color: #9c9c9c;
 `;
 
 const Cabinet = styled.Text`
   font-family: "Roboto";
   font-style: normal;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 23px;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 21px;
   color: #9c9c9c;
 `;
 

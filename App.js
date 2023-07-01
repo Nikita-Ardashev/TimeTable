@@ -2,7 +2,6 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import styled from "styled-components/native";
 import { Home } from "./src/screens/Home";
-import { Tutorial } from "./src/screens/Tutorial";
 import Constants from "expo-constants";
 
 const Wrapper = styled.View`
@@ -11,12 +10,9 @@ const Wrapper = styled.View`
 `;
 
 export default function App() {
-  const [isTutorialReady, setTutorialReady] = useState(false);
   function renderScreen() {
-    if (isTutorialReady) {
+    if (true) {
       return <Home />;
-    } else {
-      return <Tutorial setTutorialReady={setTutorialReady} />;
     }
   }
   return (
