@@ -121,13 +121,7 @@ export const Profile = ({ view, setView }) => {
     setView(false);
   }
   return (
-    <Wrapper
-      animationType="slide"
-      animationIn="slideInLeft"
-      animationOut="slideOutRight"
-      transparent={true}
-      visible={view}
-    >
+    <Wrapper animationType="slide" transparent={true} visible={view}>
       <Box>
         <Header>
           <FirstBoxHeader>

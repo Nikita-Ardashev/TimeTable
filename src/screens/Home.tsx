@@ -8,6 +8,8 @@ import ProfileIcon from "../../assets/Home/ProfileIcon.svg";
 import SearchIcon from "../../assets/Home/SearchIcon.svg";
 import CalendarIcon from "../../assets/Home/CalendarIcon.svg";
 import { Profile } from "../components/Home/Profile";
+import { Filters } from "../components/Home/Filters";
+import { css } from "styled-components";
 const Wrapper = styled.View`
   display: flex;
   flex-direction: column;
@@ -77,8 +79,13 @@ const Day = styled.Text`
   font-size: 18px;
   font-weight: 400;
   line-height: 21px;
-  border-bottom-color: #3684dd;
-  border-bottom-width: 1px;
+  ${(props) =>
+    props.$bottom &&
+    css`
+      border-bottom-color: #3684dd;
+      border-bottom-width: 1px;
+      padding: 0 4px;
+    `}
 `;
 
 const BoxLesson = styled.View`
@@ -118,11 +125,12 @@ export const Home = () => {
       />
       <Notes view={isNote} setView={setNote} />
       <Profile view={isProfile} setView={setProfile} />
+      <Filters />
       <Header>
         <BoxHeader>
           <BoxHeaderBefore>
             <ProfileBtn onPress={toggleProfile}>
-              <ProfileIcon fill={"red"} />
+              <ProfileIcon fill={"red"} height={10} width={10} />
             </ProfileBtn>
             <Title>Главная</Title>
           </BoxHeaderBefore>
@@ -140,7 +148,7 @@ export const Home = () => {
             <Day>Вчера</Day>
           </DayBtn>
           <DayBtn>
-            <Day>Сегодня</Day>
+            <Day $bottom>Сегодня</Day>
           </DayBtn>
           <DayBtn>
             <Day>Завтра</Day>
